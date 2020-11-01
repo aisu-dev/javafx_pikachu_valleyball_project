@@ -1,9 +1,9 @@
-package controller;
+package javafx_pikachu_valleyball_project.controller;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import view.Platform;
+import javafx_pikachu_valleyball_project.view.Platform;
 
 public class Launcher extends Application {
 

@@ -1,4 +1,4 @@
-package model;
+package javafx_pikachu_valleyball_project.model;
 
 import javafx.geometry.Rectangle2D;
 import javafx.scene.image.Image;

@@ -1,4 +1,4 @@
-package model;
+package javafx_pikachu_valleyball_project.model;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -7,7 +7,7 @@ import javafx.scene.layout.Pane;
 
 public class Character extends Pane {
 
-    public static final int WIDTH = 48;
+    public static final int WIDTH = 96;
     public static final int HEIGHT = 96;
 
     private Image img;
@@ -25,7 +25,7 @@ public class Character extends Pane {
         this.left = left;
         this.right = right;
         this.up = up;
-        this.img = new Image(getClass().getResourceAsStream("/assets/pikachu_sprite.png"));
+        this.img = new Image(getClass().getResourceAsStream("/javafx_pikachu_valleyball_project/assets/pikachu_sprite.png"));
         this.imgView = new AnimateSprite(img,5,5,offsetX,offsetY,64,64);
         this.imgView.setFitHeight(HEIGHT);
         this.imgView.setFitWidth(WIDTH);
