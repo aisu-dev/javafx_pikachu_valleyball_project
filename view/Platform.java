@@ -5,7 +5,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 import javafx_pikachu_valleyball_project.model.Character;
-
 import java.util.ArrayList;
 
 public class Platform extends Pane {
