@@ -4,9 +4,11 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-public class AnimateSprite extends ImageView {
+public class AnimatedSprite extends ImageView{
+
     int count, columns, offsetX, offsetY, width, height, curXIndex=0, curYIndex=0;
-    public AnimateSprite(Image image, int count, int columns, int offsetX, int offsetY, int width, int height){
+
+    public AnimatedSprite(Image image, int count, int columns, int offsetX, int offsetY, int width, int height){
         this.setImage(image);
         this.count = count;
         this.columns = columns;

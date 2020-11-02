@@ -5,23 +5,40 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 import javafx_pikachu_valleyball_project.model.Character;
+import javafx_pikachu_valleyball_project.model.Keys;
+
+
 import java.util.ArrayList;
 
 public class Platform extends Pane {
 
     public static final int WIDTH = 1200;
     public static final int HEIGHT = 600;
-    public static final int GROUND = 500;
+    public static final int GROUND = 400;
 
-    private ArrayList<Character> character_list = new ArrayList<>();
+    private Image platformImg;
+    private ArrayList<Character> characterList = new ArrayList();
 
-    public Platform(){
-        ImageView bg_img = new ImageView(new Image("/javafx_pikachu_valleyball_project/assets/background.png"));
-        bg_img.setFitWidth(WIDTH);
-        bg_img.setFitHeight(HEIGHT);
-        character_list.add(new Character(0,GROUND,0,0, KeyCode.LEFT,KeyCode.RIGHT,KeyCode.UP));
-        getChildren().add(bg_img);
-        getChildren().addAll(character_list);
+    private Keys keys;
+
+    public Platform() {
+        keys = new Keys();
+        platformImg = new Image(getClass().getResourceAsStream("/javafx_pikachu_valleyball_project/assets/background.png"));
+        ImageView backgroundImg = new ImageView(platformImg);
+        backgroundImg.setFitHeight(HEIGHT);
+        backgroundImg.setFitWidth(WIDTH);
+        characterList.add(new Character(30, 30,0,0, KeyCode.A,KeyCode.D,KeyCode.W));
+        characterList.add(new Character(30, 30,0,0, KeyCode.LEFT,KeyCode.RIGHT,KeyCode.UP));
+        getChildren().add(backgroundImg);
+        getChildren().addAll(characterList);
     }
 
+    public ArrayList<Character> getCharacterList() {
+        return characterList;
+    }
+
+    public Keys getKeys() {
+        return keys;
+    }
 }
+
