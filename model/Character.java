@@ -42,7 +42,7 @@ public class Character extends Pane {
         this.setTranslateX(x);
         this.setTranslateY(y);
         this.characterImg = new Image("/javafx_pikachu_valleyball_project/assets/pikachu_sprite.png");
-        this.imageView = new AnimatedSprite(characterImg,4,4,offsetX,offsetY,64,64);
+        this.imageView = new AnimatedSprite(characterImg,6,6,offsetX,offsetY,65,65);
         this.imageView.setFitWidth(CHARACTER_WIDTH);
         this.imageView.setFitHeight(CHARACTER_HEIGHT);
         this.leftKey = leftKey;

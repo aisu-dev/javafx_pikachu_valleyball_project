@@ -28,7 +28,7 @@ public class Platform extends Pane {
         backgroundImg.setFitHeight(HEIGHT);
         backgroundImg.setFitWidth(WIDTH);
         characterList.add(new Character(30, 30,0,0, KeyCode.A,KeyCode.D,KeyCode.W));
-        characterList.add(new Character(30, 30,0,0, KeyCode.LEFT,KeyCode.RIGHT,KeyCode.UP));
+        characterList.add(new Character(Platform.WIDTH-30, 30,0,0, KeyCode.LEFT,KeyCode.RIGHT,KeyCode.UP));
         getChildren().add(backgroundImg);
         getChildren().addAll(characterList);
     }

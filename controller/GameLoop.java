@@ -24,7 +24,7 @@ public class GameLoop implements Runnable {
 
         for (Character character : characterList ) {
             if (platform.getKeys().isPressed(character.getLeftKey()) || platform.getKeys().isPressed(character.getRightKey())) {
-                character.getImageView().tick();
+                character.getImageView().walk_anim();
             }
 
             if (platform.getKeys().isPressed(character.getLeftKey())) {
@@ -39,10 +39,12 @@ public class GameLoop implements Runnable {
 
             if (!platform.getKeys().isPressed(character.getLeftKey()) && !platform.getKeys().isPressed(character.getRightKey()) ) {
                 character.stop();
+                character.getImageView().idle_anim();
             }
 
             if (platform.getKeys().isPressed(character.getUpKey())) {
                 character.jump();
+                character.getImageView().jump_anim();
             }
         }
     }
