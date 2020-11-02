@@ -44,7 +44,6 @@ public class GameLoop implements Runnable {
 
             if (platform.getKeys().isPressed(character.getUpKey())) {
                 character.jump();
-                character.getImageView().jump_anim();
             }
         }
     }

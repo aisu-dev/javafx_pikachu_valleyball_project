@@ -131,6 +131,7 @@ public class Character extends Pane {
         else if(jumping) {
             yVelocity = yVelocity <= 0 ? 0 : yVelocity-yAcceleration;
             y = y - yVelocity;
+            imageView.jump_anim();
         }
     }
 
