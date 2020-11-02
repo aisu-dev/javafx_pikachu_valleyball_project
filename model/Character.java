@@ -98,6 +98,15 @@ public class Character extends Pane {
             x = Platform.WIDTH-CHARACTER_WIDTH;
         }
     }
+    public void collided(Character c) {
+        if (isMoveLeft) {
+            x = c.getX() + CHARACTER_WIDTH + 1;
+            stop();
+        } else if (isMoveRight) {
+            x = c.getX() - CHARACTER_WIDTH - 1;
+            stop();
+        }
+    }
 
     public void moveX() {
         setTranslateX(x);
@@ -143,4 +152,12 @@ public class Character extends Pane {
     }
 
     public AnimatedSprite getImageView() { return imageView; }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
 }

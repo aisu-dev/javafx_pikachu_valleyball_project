@@ -26,6 +26,17 @@ public class DrawingLoop implements Runnable {
             character.checkReachHighest();
             character.checkReachFloor();
         }
+        for (Character cA : characterList) {
+            for (Character cB : characterList) {
+                if (cA != cB) {
+                    if (cA.getBoundsInParent().intersects(cB.getBoundsInParent())) {
+                        cA.collided(cB);
+                        cB.collided(cA);
+                        return;
+                    }
+                }
+            }
+        }
     }
 
     private void paint(ArrayList<Character> characterList) {
