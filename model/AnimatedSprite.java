@@ -19,7 +19,12 @@ public class AnimatedSprite extends ImageView{
         this.setViewport(new Rectangle2D(offsetX, offsetY, width, height));
     }
 
-    public void walk_anim() {
+    public void move_anim() {
+        curXIndex = (curXIndex+1)%columns;
+        curYIndex = (curYIndex+1)/columns;
+        interpolate();
+    }
+    public void ball_anim() {
         curXIndex = (curXIndex+1)%columns;
         curYIndex = (curYIndex+1)/columns;
         interpolate();

@@ -24,7 +24,7 @@ public class GameLoop implements Runnable {
 
         for (Character character : characterList ) {
             if (platform.getKeys().isPressed(character.getLeftKey()) || platform.getKeys().isPressed(character.getRightKey())) {
-                character.getImageView().walk_anim();
+                character.getImageView().move_anim();
             }
 
             if (platform.getKeys().isPressed(character.getLeftKey())) {

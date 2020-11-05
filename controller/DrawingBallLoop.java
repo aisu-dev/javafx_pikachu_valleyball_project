@@ -3,19 +3,18 @@ package javafx_pikachu_valleyball_project.controller;
 
 import javafx_pikachu_valleyball_project.model.Ball;
 import javafx_pikachu_valleyball_project.model.Character;
-import javafx_pikachu_valleyball_project.model.Wall;
 import javafx_pikachu_valleyball_project.view.Platform;
 
 import java.util.ArrayList;
 
-public class DrawingLoop implements Runnable {
+public class DrawingBallLoop implements Runnable {
 
     private Platform platform;
     private int frameRate;
     private float interval;
     private boolean running;
 
-    public DrawingLoop(Platform platform) {
+    public DrawingBallLoop(Platform platform) {
         this.platform = platform;
         frameRate = 60;
         interval = 1000.0f / frameRate; // 1000 ms = 1 second
@@ -40,12 +39,8 @@ public class DrawingLoop implements Runnable {
             }
         }
     }
-    private void check_ball_collision(Ball ball, ArrayList<Character> characterList, Wall wall){
+    private void check_ball_collision(Ball ball){
         ball.checkReachFloor();
-        ball.checkHitWall(wall);
-        for (Character c:characterList) {
-            ball.check_hit_character(c);
-        }
     }
 
     private void paint_character(ArrayList<Character> characterList) {
@@ -66,7 +61,7 @@ public class DrawingLoop implements Runnable {
             check_character_collision(platform.getCharacterList());
             paint_character(platform.getCharacterList());
 
-            check_ball_collision(platform.getBall(), platform.getCharacterList(), platform.getWall());
+            check_ball_collision(platform.getBall());
             paint_ball(platform.getBall());
 
             time = System.currentTimeMillis() - time;

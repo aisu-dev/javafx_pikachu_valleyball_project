@@ -8,8 +8,9 @@ import javafx_pikachu_valleyball_project.view.Platform;
 public class Character extends Pane {
 
 
-    public static final int CHARACTER_WIDTH = 92;
-    public static final int CHARACTER_HEIGHT = 128;
+    public static final int WIDTH = 92;
+    public static final int HEIGHT = 128;
+    public int player;
 
     private Image characterImg;
 
@@ -35,16 +36,16 @@ public class Character extends Pane {
     boolean canJump = false;
     boolean jumping = false;
 
-    public Character(int x, int y, int offsetX, int offsetY, KeyCode leftKey, KeyCode rightKey, KeyCode upKey) {
-
+    public Character(int x, int y, int offsetX, int offsetY, KeyCode leftKey, KeyCode rightKey, KeyCode upKey,int player) {
+        this.player = player;
         this.x = x;
         this.y = y;
         this.setTranslateX(x);
         this.setTranslateY(y);
         this.characterImg = new Image("/javafx_pikachu_valleyball_project/assets/pikachu_sprite.png");
         this.imageView = new AnimatedSprite(characterImg,6,6,offsetX,offsetY,65,65);
-        this.imageView.setFitWidth(CHARACTER_WIDTH);
-        this.imageView.setFitHeight(CHARACTER_HEIGHT);
+        this.imageView.setFitWidth(WIDTH);
+        this.imageView.setFitHeight(HEIGHT);
         this.leftKey = leftKey;
         this.rightKey = rightKey;
         this.upKey = upKey;
@@ -84,7 +85,7 @@ public class Character extends Pane {
     }
 
     public void checkReachFloor() {
-        if(falling && y >= Platform.GROUND - CHARACTER_HEIGHT) {
+        if(falling && y >= Platform.GROUND - HEIGHT) {
             falling = false;
             canJump = true;
             yVelocity = 0;
@@ -95,15 +96,25 @@ public class Character extends Pane {
         if(x <= 0) {
             x = 0;
         } else if( x+getWidth() >= Platform.WIDTH) {
-            x = Platform.WIDTH-CHARACTER_WIDTH;
+            x = Platform.WIDTH- WIDTH;
         }
+        if (player == 1){
+            if (x+getWidth()>=Platform.WIDTH/2){
+                x = (Platform.WIDTH/2)- WIDTH;
+            }
+        }else if(player == 2){
+            if (x<=Platform.WIDTH/2){
+                x = (Platform.WIDTH/2);
+            }
+        }
+
     }
     public void collided(Character c) {
         if (isMoveLeft) {
-            x = c.getX() + CHARACTER_WIDTH + 1;
+            x = c.getX() + WIDTH + 1;
             stop();
         } else if (isMoveRight) {
-            x = c.getX() - CHARACTER_WIDTH - 1;
+            x = c.getX() - WIDTH - 1;
             stop();
         }
     }
