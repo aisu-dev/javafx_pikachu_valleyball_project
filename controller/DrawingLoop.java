@@ -41,7 +41,7 @@ public class DrawingLoop implements Runnable {
         }
     }
     private void check_ball_collision(Ball ball, ArrayList<Character> characterList, Wall wall){
-        ball.checkReachFloor();
+        ball.checkReachFloor(characterList);
         ball.checkHitWall(wall);
         for (Character c:characterList) {
             ball.check_hit_character(c);

@@ -5,8 +5,12 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx_pikachu_valleyball_project.view.Platform;
 
+import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
+
 public class Ball extends Pane {
 
+    private Platform platform;
     private AnimatedSprite imageView;
     private Image ballImg;
     private static final int WIDTH = 92,HEIGHT = 92;
@@ -18,7 +22,10 @@ public class Ball extends Pane {
     private boolean is_falling;
     private boolean is_wall;
 
-    public Ball(int x,int y,float power){
+    private static final int[][] respawn_point = {{150,100},{Platform.WIDTH-150,100}};
+
+    public Ball(Platform platform,int x,int y,float power){
+        this.platform = platform;
         this.x = x;
         this.y = y;
         this.setTranslateX(this.x);
@@ -32,10 +39,24 @@ public class Ball extends Pane {
         is_wall = false;
         getChildren().add(imageView);
     }
-    public void checkReachFloor() {
+    public void checkReachFloor(ArrayList<Character> c) {
         if(y >= Platform.GROUND - HEIGHT) {
             y = Platform.GROUND - HEIGHT;
+            if (x<Platform.WIDTH/2){
+                javafx.application.Platform.runLater(()->{
+                    c.get(1).setScore(c.get(1).getScore()+1);
+                    platform.getScoreList().get(1).setScore(c.get(1).getScore());
+                    respawn(respawn_point[0][0],respawn_point[0][1]);
+                });
+            }else{
+                javafx.application.Platform.runLater(()->{
+                    c.get(0).setScore(c.get(0).getScore()+1);
+                    platform.getScoreList().get(0).setScore(c.get(0).getScore());
+                    respawn(respawn_point[1][0],respawn_point[1][1]);
+                });
+            }
         }
+
     }
 
     public void check_hit_character(Character character){
@@ -68,11 +89,7 @@ public class Ball extends Pane {
             px *= -1;
         }
         if(getBoundsInParent().intersects(wall.getBoundsInParent())&&is_wall){
-            if (px<0){
-                px = Math.abs(px);
-            }else if (px>0){
-                px = -px;
-            }
+            px*=-1;
             is_wall = false;
         }
         if(getY()<=0){
@@ -98,7 +115,6 @@ public class Ball extends Pane {
         if(is_falling){
             py += GRAVITY/10;
             y+=py;
-//              y+=GRAVITY;
         }else{
             y-=py;
             py-=GRAVITY;
@@ -111,7 +127,16 @@ public class Ball extends Pane {
         moveY();
     }
 
-    public int getX() { return x; }
+    private void respawn(int x,int y){
+        this.x = x;
+        this.y = y;
+        is_falling = true;
+        is_wall = false;
+        px = 0;
+        py = 0;
+    }
 
+    public int getX() { return x; }
     public int getY() { return y; }
+
 }

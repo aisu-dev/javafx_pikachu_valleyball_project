@@ -39,9 +39,19 @@ public class AnimatedSprite extends ImageView{
         curYIndex = 6/columns;
         interpolate();
     }
+    public void dash_anim(){
+        curXIndex = 2%columns;
+        curYIndex = 2/columns;
+        manual_interpolate(0,128);
+    }
     protected void interpolate() {
         final int x = curXIndex*width+offsetX;
         final int y = curYIndex*height+offsetY;
+        this.setViewport(new Rectangle2D(x, y, width, height));
+    }
+    protected void manual_interpolate(int offX,int offY) {
+        final int x = curXIndex*width+offX;
+        final int y = curYIndex*height+offY;
         this.setViewport(new Rectangle2D(x, y, width, height));
     }
 }

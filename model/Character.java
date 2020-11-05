@@ -23,6 +23,9 @@ public class Character extends Pane {
     private KeyCode leftKey;
     private KeyCode rightKey;
     private KeyCode upKey;
+    private KeyCode dashKey;
+    private KeyCode smashKey;
+    private int score;
 
     int xVelocity = 0;
     int yVelocity = 0;
@@ -36,7 +39,7 @@ public class Character extends Pane {
     boolean canJump = false;
     boolean jumping = false;
 
-    public Character(int x, int y, int offsetX, int offsetY, KeyCode leftKey, KeyCode rightKey, KeyCode upKey,int player) {
+    public Character(int x, int y, int offsetX, int offsetY, KeyCode leftKey, KeyCode rightKey, KeyCode upKey, KeyCode dashKey, KeyCode smashKey, int player) {
         this.player = player;
         this.x = x;
         this.y = y;
@@ -49,6 +52,8 @@ public class Character extends Pane {
         this.leftKey = leftKey;
         this.rightKey = rightKey;
         this.upKey = upKey;
+        this.dashKey = dashKey;
+        this.smashKey = smashKey;
         this.getChildren().addAll(this.imageView);
     }
 
@@ -119,6 +124,10 @@ public class Character extends Pane {
         }
     }
 
+    public void dash(){
+        imageView.dash_anim();
+    }
+
     public void moveX() {
         setTranslateX(x);
 
@@ -163,13 +172,28 @@ public class Character extends Pane {
         return upKey;
     }
 
+    public KeyCode getDashKey() {
+        return dashKey;
+    }
+
+    public KeyCode getSmashKey() {
+        return smashKey;
+    }
+
     public AnimatedSprite getImageView() { return imageView; }
 
     public int getX() {
         return x;
     }
-
     public int getY() {
         return y;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
     }
 }
