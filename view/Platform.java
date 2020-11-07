@@ -29,11 +29,11 @@ public class Platform extends Pane {
         ImageView backgroundImg = new ImageView(platformImg);
         backgroundImg.setFitHeight(HEIGHT);
         backgroundImg.setFitWidth(WIDTH);
-        characterList.add(new Character(30, GROUND- Character.HEIGHT,0,0, KeyCode.A,KeyCode.D,KeyCode.W,KeyCode.Q,KeyCode.SPACE ,1));
-        characterList.add(new Character(Platform.WIDTH-30, GROUND - Character.HEIGHT,0,0, KeyCode.LEFT,KeyCode.RIGHT,KeyCode.UP,KeyCode.J ,KeyCode.K,2));
+        characterList.add(new Character(30, GROUND- Character.HEIGHT,0,0, KeyCode.A,KeyCode.D,KeyCode.W,KeyCode.SPACE ,1));
+        characterList.add(new Character(Platform.WIDTH-30, GROUND - Character.HEIGHT,0,0, KeyCode.LEFT,KeyCode.RIGHT,KeyCode.UP,KeyCode.K,2));
         scoreList.add(new Score(30,30));
         scoreList.add(new Score(WIDTH-90,30));
-        ball = new Ball(this,180,100,17f);
+        ball = new Ball(this,180,100,17f,50f);
         wall = new Wall();
         getChildren().add(backgroundImg);
         getChildren().addAll(scoreList);

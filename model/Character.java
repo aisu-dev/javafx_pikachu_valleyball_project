@@ -23,8 +23,7 @@ public class Character extends Pane {
     private KeyCode leftKey;
     private KeyCode rightKey;
     private KeyCode upKey;
-    private KeyCode dashKey;
-    private KeyCode smashKey;
+    private KeyCode specialKey;
     private int score;
 
     int xVelocity = 0;
@@ -38,9 +37,12 @@ public class Character extends Pane {
     boolean falling = true;
     boolean canJump = false;
     boolean jumping = false;
+    int currentDirection;
+    int dashBound = 0;
 
-    public Character(int x, int y, int offsetX, int offsetY, KeyCode leftKey, KeyCode rightKey, KeyCode upKey, KeyCode dashKey, KeyCode smashKey, int player) {
+    public Character(int x, int y, int offsetX, int offsetY, KeyCode leftKey, KeyCode rightKey, KeyCode upKey, KeyCode specialKey, int player) {
         this.player = player;
+        if(player==1){currentDirection = 1;}else if(player == 2){currentDirection=-1;setScaleX(-1);}
         this.x = x;
         this.y = y;
         this.setTranslateX(x);
@@ -52,16 +54,17 @@ public class Character extends Pane {
         this.leftKey = leftKey;
         this.rightKey = rightKey;
         this.upKey = upKey;
-        this.dashKey = dashKey;
-        this.smashKey = smashKey;
+        this.specialKey = specialKey;
         this.getChildren().addAll(this.imageView);
     }
 
     public void moveLeft() {
+        currentDirection = -1;
         isMoveLeft = true;
         isMoveRight = false;
     }
     public void moveRight() {
+        currentDirection = 1;
         isMoveRight = true;
         isMoveLeft = false;
     }
@@ -124,8 +127,30 @@ public class Character extends Pane {
         }
     }
 
-    public void dash(){
-        imageView.dash_anim();
+    public void special(){
+        if(canJump){
+            imageView.dash_anim();
+            if(currentDirection == -1&&dashBound==0){
+                dashBound = x-100;
+            }else if(currentDirection == 1&&dashBound==0){
+                dashBound = x+100;
+            }
+            while(dashBound!=0){
+                if(currentDirection == -1){
+                    x-=5;
+                    if (x<=dashBound){
+                        dashBound = 0;
+                        break;
+                    }
+                }else if(currentDirection == 1){
+                    x+=5;
+                    if (x>=dashBound){
+                        dashBound = 0;
+                        break;
+                    }
+                }
+            }
+        }
     }
 
     public void moveX() {
@@ -172,12 +197,8 @@ public class Character extends Pane {
         return upKey;
     }
 
-    public KeyCode getDashKey() {
-        return dashKey;
-    }
-
-    public KeyCode getSmashKey() {
-        return smashKey;
+    public KeyCode getSpecialKey() {
+        return specialKey;
     }
 
     public AnimatedSprite getImageView() { return imageView; }

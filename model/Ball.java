@@ -17,14 +17,14 @@ public class Ball extends Pane {
     private static final float GRAVITY = .98f;
 
     private int x,y;
-    private float power,px,py;
+    private float smash_power,power,px,py;
     private int max_yDistance;
     private boolean is_falling;
     private boolean is_wall;
 
     private static final int[][] respawn_point = {{150,100},{Platform.WIDTH-150,100}};
 
-    public Ball(Platform platform,int x,int y,float power){
+    public Ball(Platform platform,int x,int y,float power,float smash_power){
         this.platform = platform;
         this.x = x;
         this.y = y;
@@ -35,6 +35,7 @@ public class Ball extends Pane {
         this.imageView.setFitWidth(WIDTH);
         this.imageView.setFitHeight(HEIGHT);
         this.power = power;
+        this.smash_power = smash_power;
         is_falling = true;
         is_wall = false;
         getChildren().add(imageView);
@@ -59,8 +60,9 @@ public class Ball extends Pane {
 
     }
 
-    public void check_hit_character(Character character){
+    public void check_hit_character(Character character,Platform platform){
         if(getBoundsInParent().intersects(character.getBoundsInParent())){
+            float p = platform.getKeys().isPressed(character.getSpecialKey())?smash_power:power;
             float cx = (float)character.getBoundsInParent().getCenterX();
             float cy = (float)character.getBoundsInParent().getCenterY();
             float bx = (float)getBoundsInParent().getCenterX();
@@ -69,14 +71,13 @@ public class Ball extends Pane {
             float a = Math.abs(bx-cx);
             float o = Math.abs(by-cy);
             if (bx-cx<0){
-                px = -(power * a / h);
-                py = power * o/h;
+                px = -(p * a / h);
+                py = p * o/h;
             }else{
-                px = power * a / h;
-                py = power * o/h;
+                px = p * a / h;
+                py = p * o/h;
             }
             py = py<8?8:py;
-            System.out.println(py);
             max_yDistance = (int) (getY()-(Math.abs((Math.pow(py,2)/(2*GRAVITY)))));
             is_falling = false;
             is_wall = true;
@@ -84,7 +85,6 @@ public class Ball extends Pane {
     }
 
     public void checkHitWall(Wall wall){
-        System.out.println(px);
         if (getX()<0||getX()+WIDTH>=Platform.WIDTH){
             px *= -1;
         }
